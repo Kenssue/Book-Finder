@@ -1,3 +1,14 @@
+// Logout function
+function logout() {
+  // Perform logout actions, e.g., clear session, redirect, etc.
+  console.log("User logged out");
+  window.location.href = "index.html"; // Redirect to the login page
+}
+
+// Add event listener to the logout button
+document.getElementById("logoutButton").addEventListener("click", logout);
+
+// Existing code for book search
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
 const resultsDiv = document.getElementById('results');
@@ -26,22 +37,22 @@ async function searchBooks(query) {
 
 function displayResults(books) {
   resultsDiv.innerHTML = '';
-  if (books && books.length > 0) {
-    books.forEach(book => {
-      const bookInfo = book.volumeInfo;
-      const bookElement = document.createElement('div');
-      bookElement.classList.add('book');
-      bookElement.innerHTML = `
-        <h3>${bookInfo.title}</h3>
-        <p><strong>Author(s):</strong> ${bookInfo.authors ? bookInfo.authors.join(', ') : 'Unknown'}</p>
-        <p><strong>Publisher:</strong> ${bookInfo.publisher || 'Unknown'}</p>
-        <p><strong>Published Date:</strong> ${bookInfo.publishedDate || 'Unknown'}</p>
-        <p><strong>Description:</strong> ${bookInfo.description || 'No description available.'}</p>
-        <a href="${bookInfo.previewLink}" target="_blank">Preview</a>
-      `;
-      resultsDiv.appendChild(bookElement);
-    });
-  } else {
-    resultsDiv.innerHTML = '<p>No books found. Try a different search.</p>';
+
+  if (!books || books.length === 0) {
+    resultsDiv.innerHTML = '<p>No books found. Try a different search term.</p>';
+    return;
   }
+
+  books.forEach(book => {
+    const bookCard = document.createElement('div');
+    bookCard.className = 'book-card';
+    bookCard.innerHTML = `
+      <h3>${book.volumeInfo.title}</h3>
+      <p><strong>Author(s):</strong> ${book.volumeInfo.authors?.join(', ') || 'Unknown'}</p>
+      <p><strong>Published Date:</strong> ${book.volumeInfo.publishedDate || 'Unknown'}</p>
+      <p><strong>Description:</strong> ${book.volumeInfo.description?.substring(0, 150) || 'No description available'}...</p>
+      <a href="${book.volumeInfo.previewLink}" target="_blank">Read More</a>
+    `;
+    resultsDiv.appendChild(bookCard);
+  });
 }
