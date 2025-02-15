@@ -7,19 +7,30 @@
   <link rel="stylesheet" href="api.css">
 </head>
 <body>
-  <!-- Logout Button -->
-  <button id="logoutButton" style="position: absolute; top: 10px; right: 10px;">Logout</button>
-
   <div class="container">
     <h1>Welcome to Book📖Finder</h1>
-    <p>Here you can search your Favorite Book📓✧˖°.</p>
+    <p class="intro-text">Here you can search for your favorite books📓✧˖°.</p>
     <!-- Search Form -->
     <form id="search-form">
       <input type="text" id="search-input" placeholder="Search for a book..." required>
       <button type="submit">Search</button>
     </form>
+
+    <!-- Logout Button -->
+<button id="logout-btn" class="logout-btn">Logout</button>
+
     <!-- Display Search Results -->
-    <div id="results"></div>
+    <div id="results" class="results-grid"></div>
+  </div>
+
+  <!-- Modal for Preview -->
+  <div id="book-modal" class="modal">
+    <div class="modal-content">
+      <span id="modal-close" class="close">&times;</span>
+      <h2 id="modal-title"></h2>
+      <p id="modal-description"></p>
+      <a id="modal-link" href="" target="_blank" style="display: none;">Go to Preview</a>
+    </div>
   </div>
 
   <script src="api.js"></script>
