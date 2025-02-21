@@ -6,6 +6,7 @@ const modalTitle = document.getElementById('modal-title');
 const modalDescription = document.getElementById('modal-description');
 const modalLink = document.getElementById('modal-link');
 const modalClose = document.getElementById('modal-close');
+const logoutButton = document.getElementById('logout-btn');
 
 // Fetch local books.json data
 async function fetchLocalBooks() {
@@ -22,7 +23,7 @@ async function fetchLocalBooks() {
 
 // Search books (both local and Google Books API)
 async function searchBooks(query) {
-  const apiKey = 'AIzaSyBVvOjbDoIzmEeK2uSfzSM8eoBfNKc6YHI'; // Replace with your API key
+  const apiKey = 'AIzaSyBVvOjbDoIzmEeK2uSfzSM8eoBfNKc6YHI'; // My API key
   const googleBooksUrl = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&key=${apiKey}`;
 
   try {
@@ -101,9 +102,8 @@ searchForm.addEventListener('submit', async (e) => {
   }
 });
 
-
 // Logout functionality
 logoutButton.addEventListener('click', function() {
   alert("Logged out!");
-  window.location.href = "index.html";
+  window.location.href = "index.html"; // Redirecting to the index page or wherever you want
 });
