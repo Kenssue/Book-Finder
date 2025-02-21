@@ -106,3 +106,64 @@ button:hover {
     color: #3e3e3e;
 }
   
+@media (max-width: 768px) {
+    body {
+        padding: 10px; /* Slight padding around the body for smaller screens */
+    }
+
+    .container {
+        width: 100%; /* Make the container take full width on smaller screens */
+        padding: 20px; /* Reduce padding for smaller devices */
+    }
+
+    h1 {
+        font-size: 1.8rem; /* Smaller heading for smaller screens */
+    }
+
+    #search-input {
+        width: 100%; /* Make the input take full width on smaller devices */
+    }
+
+    button {
+        width: 100%; /* Make the button take full width on smaller devices */
+        padding: 12px; /* Add some padding for better touch experience */
+    }
+
+    .book {
+        padding: 10px; /* Reduce padding inside book container */
+    }
+
+    .book h3 {
+        font-size: 1.2rem; /* Reduce the font size of the book title */
+    }
+
+    .book p {
+        font-size: 1rem; /* Smaller font size for paragraphs in the book */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem; /* Further reduce heading size for smaller screens */
+    }
+
+    .container {
+        padding: 15px; /* Even smaller padding */
+    }
+
+    #search-input {
+        font-size: 16px; /* Make input text size smaller for better readability */
+    }
+
+    button {
+        font-size: 16px; /* Smaller font size on button */
+    }
+
+    .book h3 {
+        font-size: 1.1rem; /* Even smaller book title font */
+    }
+
+    .book p {
+        font-size: 0.9rem; /* Smaller font size for book descriptions */
+    }
+}
