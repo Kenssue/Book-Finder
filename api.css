@@ -1,11 +1,9 @@
-/* Reset all margin and padding */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* General Body Styles */
 body {
     background-color: #222; 
     color: #fff;
@@ -204,4 +202,41 @@ button[type="submit"]:focus {
 .close:focus {
     color: #f44336;
     text-decoration: none;
+}
+@media (max-width: 480px) {
+    /* Adjust title size */
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    /* Adjust search input padding */
+    #search-input {
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    /* Adjust button size */
+    button[type="submit"] {
+        padding: 10px 15px;
+        font-size: 1rem;
+    }
+
+    /* Adjust book item padding */
+    .book {
+        padding: 10px;
+    }
+
+    .book h3 {
+        font-size: 1.2rem;
+    }
+
+    .book p {
+        font-size: 0.9rem;
+    }
+
+    /* Adjust logout button size */
+    .logout-btn {
+        padding: 8px 16px;
+        font-size: 1rem;
+    }
 }
