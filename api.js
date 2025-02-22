@@ -32,7 +32,7 @@ async function searchBooks(query) {
     // Fetch data from both sources
     const [localBooks, googleBooksResponse] = await Promise.all([
       fetchLocalBooks(),
-      fetch(googleBooksUrl).then(res => res.json()),
+      fetch(googleBooksUrl).then(res => res.ok ? res.json() : Promise.reject('Failed to fetch Google Books')),
     ]);
 
     // Combine results
@@ -60,7 +60,7 @@ function displayResults(books) {
         <p><strong>Publisher:</strong> ${bookInfo.publisher || 'Unknown'}</p>
         <p><strong>Published Date:</strong> ${bookInfo.publishedDate || 'Unknown'}</p>
         <p><strong>Description:</strong> ${bookInfo.description ? bookInfo.description.slice(0, 150) + '...' : 'No description available.'}</p>
-        ${bookInfo.previewLink ? `<button class="preview-btn" data-link="${bookInfo.previewLink}">Preview</button>` : ''}
+        ${bookInfo.previewLink ? `<button class="preview-btn" data-link="${bookInfo.previewLink}">Preview</button>` : '<p>No preview available.</p>'}
       `;
       resultsDiv.appendChild(bookElement);
     });
@@ -70,8 +70,12 @@ function displayResults(books) {
     previewButtons.forEach(button => {
       button.addEventListener('click', (e) => {
         const previewLink = e.target.getAttribute('data-link');
-        const bookInfo = e.target.closest('.book').querySelector('h3').textContent;
-        openModal(bookInfo, previewLink);
+        if (previewLink) {
+          // Open the preview link directly in a new tab
+          window.open(previewLink, '_blank');
+        } else {
+          console.error("No preview link found.");
+        }
       });
     });
   } else {
@@ -81,16 +85,34 @@ function displayResults(books) {
 
 // Open modal with book preview details
 function openModal(bookTitle, previewLink) {
+  console.log("Opening modal for:", bookTitle, previewLink); // Debugging log
   modalTitle.textContent = bookTitle;
   modalDescription.textContent = 'Click the link below to view more details:';
+
+  // Display the link in the modal (without opening the preview link inside the modal itself)
   modalLink.href = previewLink;
-  modalLink.style.display = 'block'; // Show the preview link
+  modalLink.textContent = 'Go to Preview';
+
+  // Show the modal with the preview link
+  if (previewLink) {
+    modalLink.style.display = 'block'; // Ensure preview link is shown
+  } else {
+    modalLink.style.display = 'none'; // Hide if no link
+  }
+
   bookModal.style.display = 'block'; // Show the modal
 }
 
 // Close modal
 modalClose.addEventListener('click', () => {
   bookModal.style.display = 'none'; // Hide modal when close button is clicked
+});
+
+// Close modal when clicking outside of it
+window.addEventListener('click', (e) => {
+  if (e.target === bookModal) {
+    bookModal.style.display = 'none';
+  }
 });
 
 // Event listener for search form
